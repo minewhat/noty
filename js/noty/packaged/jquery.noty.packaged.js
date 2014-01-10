@@ -145,7 +145,6 @@ if (typeof Object.create !== 'function') {
         self.options.animation.speed,
         self.options.animation.easing,
         function () {
-          console.log('here');
           if (self.options.callback.afterShow) self.options.callback.afterShow.apply(self);
           self.showing = false;
           self.shown = true;
