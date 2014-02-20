@@ -66,7 +66,7 @@ if (typeof Object.create !== 'function') {
 
         // If we have button disable closeWith & timeout options
         this.options.closeWith = [];
-        this.options.timeout = false;
+        //this.options.timeout = false;
 
         var $buttons = $('<div/>').addClass('noty_buttons');
 
