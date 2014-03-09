@@ -56,7 +56,21 @@ if (typeof Object.create !== 'function') {
       var $bar = $('<div class="noty_bar noty_type_' + this.options.type + '"></div>').attr('id', this.options.id);
       $bar.append(this.options.template).find('.noty_text').html(this.options.text);
 
+
       this.$bar = (this.options.layout.parent.object !== null) ? $(this.options.layout.parent.object).css(this.options.layout.parent.css).append($bar) : $bar;
+
+      if(this.options.link){
+        var self = this;
+        var $link = $('<a/>').addClass('anchor-blue').html(this.options.link.text).attr('href',"#")
+          .appendTo(this.$bar.find('.noty_link'))
+          .bind('click', function (evt) {
+            evt.preventDefault();
+            if ($.isFunction(self.options.link.onClick)) {
+              self.options.link.onClick.call(self);
+            }
+            self.close();
+          });
+      }
 
       if (this.options.themeClassName)
         this.$bar.addClass(this.options.themeClassName).addClass('noty_container_type_' + this.options.type);
