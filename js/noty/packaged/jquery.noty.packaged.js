@@ -59,17 +59,20 @@ if (typeof Object.create !== 'function') {
 
       this.$bar = (this.options.layout.parent.object !== null) ? $(this.options.layout.parent.object).css(this.options.layout.parent.css).append($bar) : $bar;
 
-      if(this.options.link){
+      // Set buttons if available
+      if (this.options.links) {
+
         var self = this;
-        var $link = $('<a/>').addClass('anchor-blue').html(this.options.link.text).attr('href',"#")
-          .appendTo(this.$bar.find('.noty_link'))
-          .bind('click', function (evt) {
-            evt.preventDefault();
-            if ($.isFunction(self.options.link.onClick)) {
-              self.options.link.onClick.call(self);
-            }
-            self.close();
-          });
+
+        $.each(this.options.links, function (i, link) {
+          var $link = $('<a/>').addClass((link.addClass) ? link.addClass : 'anchor-blue mr-20').html(link.text).attr('id', link.id ? link.id : 'link-' + i)
+            .appendTo(self.$bar.find('.noty_link'))
+            .bind('click', function () {
+              if ($.isFunction(link.onClick)) {
+                link.onClick.call($link, self);
+              }
+            });
+        });
       }
 
       if (this.options.themeClassName)
